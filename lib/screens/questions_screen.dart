@@ -5,12 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 class Question {
   final String imagePath; // Caminho da imagem ou gif
   final List<String> options; // Lista de opções de resposta
-  final int correctOptionIndex; // Índice da opção correta
+  final String correctOption; // Resposta correta
 
   Question({
     required this.imagePath,
     required this.options,
-    required this.correctOptionIndex,
+    required this.correctOption,
   });
 }
 
@@ -49,7 +49,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   late double progressValue;
   late List<Color> optionColors;
   late bool optionSelected;
-  late int selectedOptionIndex;
+  late String selectedOption;
   bool answerCorrect =
       false; // Variável para armazenar se a resposta selecionada é correta ou não
   bool optionsEnabled =
@@ -58,8 +58,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   @override
   void initState() {
     super.initState();
-    progressValue = 0; // Inicializa o valor do progresso
     initializeQuiz(); // Inicialização do quiz
+    progressValue = 1 / quiz.questions.length;
     initializeOptionColors(); // Inicializa as cores das opções
     optionSelected = false;
   }
@@ -70,32 +70,32 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
       Question(
         imagePath: 'pergunta1.jpg',
         options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
-        correctOptionIndex: 1,
+        correctOption: 'Opção 2',
       ),
       Question(
         imagePath: 'pergunta2.jpg',
         options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
-        correctOptionIndex: 0,
+        correctOption: 'Opção 1',
       ),
       Question(
         imagePath: 'pergunta3.jpg',
         options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
-        correctOptionIndex: 1,
+        correctOption: 'Opção 2',
       ),
       Question(
         imagePath: 'pergunta4.jpg',
         options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
-        correctOptionIndex: 0,
+        correctOption: 'Opção 1',
       ),
       Question(
         imagePath: 'pergunta5.jpg',
         options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
-        correctOptionIndex: 1,
+        correctOption: 'Opção 2',
       ),
       Question(
         imagePath: 'pergunta6.jpg',
         options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
-        correctOptionIndex: 0,
+        correctOption: 'Opção 1',
       ),
       // Adicione mais perguntas conforme necessário
     ];
@@ -155,7 +155,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                 LinearProgressIndicator(
                   color: Colors.green,
                   value: progressValue, // Valor do progresso
-                ), // Barra de progresso
+                ),
                 SizedBox(height: 16), // Espaço entre widgets
                 Padding(
                   padding: EdgeInsets.all(constraints.maxWidth * 0.02),
@@ -191,17 +191,20 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                               onPressed: optionsEnabled
                                   ? () {
                                       setState(() {
-                                        selectedOptionIndex = index;
+                                        selectedOption = quiz
+                                                .getCurrentQuestion()
+                                                .options[
+                                            index]; // Armazena a opção selecionada
                                         optionSelected = true;
                                         optionColors[index] = Color(
                                             0xFF808DFF); // Define a cor da opção selecionada
-                                        // Compara o índice da opção selecionada com o índice da opção correta
-                                        answerCorrect = index ==
+                                        // Verifica se a opção selecionada é correta
+                                        answerCorrect = selectedOption ==
                                             quiz
                                                 .getCurrentQuestion()
-                                                .correctOptionIndex;
+                                                .correctOption;
                                         print(
-                                            'Opção selecionada: ${quiz.getCurrentQuestion().options[index]}');
+                                            'Opção selecionada: $selectedOption');
                                       });
                                     }
                                   : null,
@@ -236,10 +239,14 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                           // Se a resposta estiver correta, define a cor da opção selecionada como verde
                           optionColors[quiz
                               .getCurrentQuestion()
-                              .correctOptionIndex] = Colors.green;
+                              .options
+                              .indexOf(selectedOption)] = Colors.green;
                         } else {
                           // Se a resposta estiver incorreta, define a cor da opção selecionada como vermelha
-                          optionColors[selectedOptionIndex] = Colors.red;
+                          optionColors[quiz
+                              .getCurrentQuestion()
+                              .options
+                              .indexOf(selectedOption)] = Colors.red;
                         }
                       });
                       goToNextQuestionAfterDelay(); // Avança para a próxima pergunta após um atraso
