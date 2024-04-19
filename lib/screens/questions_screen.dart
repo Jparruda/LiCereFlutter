@@ -138,7 +138,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
           'LiCere',
           style: GoogleFonts.lobsterTwo(
             textStyle: const TextStyle(
-              fontSize: 24,
+              fontSize: 40,
               color: Color(0xFF09E762),
               fontWeight: FontWeight.bold,
               fontStyle: FontStyle.italic,
@@ -153,10 +153,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             child: Column(
               children: [
                 LinearProgressIndicator(
-                  color: Colors.green,
+                  color: const Color(0xFF09E762),
                   value: progressValue, // Valor do progresso
                 ),
-                SizedBox(height: 16), // Espaço entre widgets
+                const SizedBox(height: 16), // Espaço entre widgets
                 Padding(
                   padding: EdgeInsets.all(constraints.maxWidth * 0.02),
                   child: Align(
@@ -169,7 +169,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(4),
+                  padding: const EdgeInsets.all(4),
                   child: Align(
                     alignment: Alignment.center,
                     child: Container(
@@ -196,7 +196,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                                 .options[
                                             index]; // Armazena a opção selecionada
                                         optionSelected = true;
-                                        optionColors[index] = Color(
+                                        optionColors[index] = const Color(
                                             0xFF808DFF); // Define a cor da opção selecionada
                                         // Verifica se a opção selecionada é correta
                                         answerCorrect = selectedOption ==

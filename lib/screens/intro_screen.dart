@@ -15,7 +15,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
-    final double fontSize = screenSize.width * 0.12; // 5% da largura da tela
+    final double fontSize = screenSize.width * 0.12; 
     return Scaffold(
       backgroundColor: const Color(0xFF808DFF),
       body: Center(
@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => QuestionsScreen()),
+                  MaterialPageRoute(builder: (context) => const QuestionsScreen()),
                 );
               },
               style: ButtonStyle(
