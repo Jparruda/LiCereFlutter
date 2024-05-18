@@ -1,44 +1,13 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/entities/question.dart';
+import 'package:flutter_application_1/entities/quiz.dart';
+import 'package:flutter_application_1/entities/resposta.dart';
+import 'package:flutter_application_1/main.dart';
+import 'package:flutter_application_1/screens/results.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Question {
-  final String imagePath; // Caminho da imagem ou gif
-  final List<String> options; // Lista de opções de resposta
-  final String correctOption; // Resposta correta
-
-  Question({
-    required this.imagePath,
-    required this.options,
-    required this.correctOption,
-  });
-}
-
-class Quiz {
-  final List<Question> questions;
-  int _currentIndex = 0;
-
-  Quiz({required this.questions});
-
-  void shuffleQuestions() {
-    questions.shuffle();
-  }
-
-  Question getCurrentQuestion() {
-    return questions[_currentIndex];
-  }
-
-  void moveToNextQuestion() {
-    if (_currentIndex < questions.length - 1) {
-      _currentIndex++;
-    } else {
-      _currentIndex = 0;
-    }
-  }
-}
-
 class QuestionsScreen extends StatefulWidget {
-  const QuestionsScreen({Key? key}) : super(key: key);
+  const QuestionsScreen({super.key});
 
   @override
   State<QuestionsScreen> createState() => _QuestionsScreenState();
@@ -122,7 +91,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     Future.delayed(const Duration(seconds: 1), () {
       setState(() {
         quiz.moveToNextQuestion(); // Avança para a próxima pergunta
-        progressValue = (quiz._currentIndex + 1) / quiz.questions.length;
+        progressValue = (quiz.currentIndex + 1) / quiz.questions.length;
         initializeOptionColors(); // Reinicializa as cores das opções
         optionSelected = false;
         optionsEnabled = true; // Habilita as opções novamente
@@ -172,7 +141,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   padding: const EdgeInsets.all(4),
                   child: Align(
                     alignment: Alignment.center,
-                    child: Container(
+                    child: SizedBox(
                       width: constraints.maxWidth * 0.5,
                       height: (quiz.getCurrentQuestion().options.length * 10)
                           .toDouble(), // Calcula a altura do Container com base no número de opções
@@ -203,14 +172,12 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                             quiz
                                                 .getCurrentQuestion()
                                                 .correctOption;
-                                        print(
-                                            'Opção selecionada: $selectedOption');
                                       });
                                     }
                                   : null,
                               style: ButtonStyle(
                                 backgroundColor:
-                                    MaterialStateProperty.resolveWith<Color>(
+                                    WidgetStateProperty.resolveWith<Color>(
                                   (states) {
                                     return optionColors[
                                         index]; // Retorna a cor da opção conforme definido
@@ -250,25 +217,38 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                         }
                       });
                       goToNextQuestionAfterDelay(); // Avança para a próxima pergunta após um atraso
+                      Resposta resposta = Resposta(
+                          escolhida: selectedOption,
+                          questao: quiz.getCurrentQuestion());
+                      getIt<List<Resposta>>().add(resposta);
+
+                      if (quiz.currentIndex == quiz.questions.length - 1) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Resultados(),
+                          ),
+                        );
+                      }
                     }
                   },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xFF09E762)),
-                    foregroundColor: MaterialStateProperty.all<Color>(
+                    backgroundColor:
+                        WidgetStateProperty.all<Color>(const Color(0xFF09E762)),
+                    foregroundColor: WidgetStateProperty.all<Color>(
                         const Color.fromARGB(255, 47, 156, 91)),
-                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                    padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
                       const EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 20.0),
                     ),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                    shape: WidgetStateProperty.all<OutlinedBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                         side: const BorderSide(
                             color: Colors.white), // Adiciona a borda
                       ),
                     ),
-                    elevation: MaterialStateProperty.all<double>(
+                    elevation: WidgetStateProperty.all<double>(
                         30.0), // Adiciona a sombra
                   ),
                   child: Text(
