@@ -38,31 +38,37 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     List<Question> questions = [
       Question(
         imagePath: 'pergunta1.jpg',
+        textQuestion: 'Que letra é essa?',
         options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
         correctOption: 'Opção 2',
       ),
       Question(
         imagePath: 'pergunta2.jpg',
+        textQuestion: 'Que letra é essa?',
         options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
         correctOption: 'Opção 1',
       ),
       Question(
         imagePath: 'pergunta3.jpg',
+        textQuestion: 'Que letra é essa?',
         options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
         correctOption: 'Opção 2',
       ),
       Question(
         imagePath: 'pergunta4.jpg',
+        textQuestion: 'Que letra é essa?',
         options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
         correctOption: 'Opção 1',
       ),
       Question(
         imagePath: 'pergunta5.jpg',
+        textQuestion: 'Que letra é essa?',
         options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
         correctOption: 'Opção 2',
       ),
       Question(
         imagePath: 'pergunta6.jpg',
+        textQuestion: 'Que letra é essa?',
         options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
         correctOption: 'Opção 1',
       ),
@@ -121,41 +127,51 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
           return SingleChildScrollView(
             child: Column(
               children: [
-                LinearProgressIndicator(
-                  color: const Color(0xFF09E762),
-                  value: progressValue, // Valor do progresso
+                SizedBox(
+                  height: 9.0,
+                  child: LinearProgressIndicator(
+                    color: const Color(0xFF09E762),
+                    value: progressValue,
+                    backgroundColor:const Color(0xFF08B44D), // Valor do progresso
+                    borderRadius: BorderRadius.circular(40.00),
+                  ),
                 ),
                 const SizedBox(height: 16), // Espaço entre widgets
                 Padding(
                   padding: EdgeInsets.all(constraints.maxWidth * 0.02),
                   child: Align(
                     alignment: Alignment.center,
-                    child: Image.asset(
+                    child:ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child:Image.asset(
                       quiz.getCurrentQuestion().imagePath,
                       width: constraints.maxWidth * 0.5,
                       height: constraints.maxWidth * 0.3,
                     ),
+                    ),
                   ),
                 ),
+                Text(quiz.getCurrentQuestion().textQuestion),
                 Padding(
                   padding: const EdgeInsets.all(4),
                   child: Align(
                     alignment: Alignment.center,
                     child: SizedBox(
-                      width: constraints.maxWidth * 0.5,
+                      width: constraints.maxWidth * 0.7,
                       height: (quiz.getCurrentQuestion().options.length * 10)
                           .toDouble(), // Calcula a altura do Container com base no número de opções
                       child: Wrap(
                         alignment: WrapAlignment.center,
                         spacing: 8.0, // Espaçamento entre os botões
                         runSpacing:
-                            8.0, // Espaçamento entre as linhas de botões
+                            20.0, // Espaçamento entre as linhas de botões
                         children: List.generate(
                           quiz.getCurrentQuestion().options.length,
                           (index) => SizedBox(
                             width: (constraints.maxWidth * 0.5 - 8.0) /
                                     quiz.getCurrentQuestion().options.length -
                                 8.0, // Calcula a largura do botão
+                            height: constraints.maxHeight * 0.13,
                             child: TextButton(
                               onPressed: optionsEnabled
                                   ? () {
@@ -207,13 +223,13 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                           optionColors[quiz
                               .getCurrentQuestion()
                               .options
-                              .indexOf(selectedOption)] = Colors.green;
+                              .indexOf(selectedOption)] = const Color(0xFF09E762);
                         } else {
                           // Se a resposta estiver incorreta, define a cor da opção selecionada como vermelha
                           optionColors[quiz
                               .getCurrentQuestion()
                               .options
-                              .indexOf(selectedOption)] = Colors.red;
+                              .indexOf(selectedOption)] = const Color(0xFFFC1605);
                         }
                       });
                       goToNextQuestionAfterDelay(); // Avança para a próxima pergunta após um atraso

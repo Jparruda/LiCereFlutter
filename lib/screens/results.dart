@@ -47,6 +47,7 @@ class _ResultadosState extends State<Resultados> {
             questao: Question(
               correctOption: "A",
               options: ["A", "B", "C", "D"],
+              textQuestion: "",
               imagePath: "",
             ),
           );

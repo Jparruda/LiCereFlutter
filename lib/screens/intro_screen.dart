@@ -58,7 +58,10 @@ class PlayButton extends StatelessWidget {
         shape: WidgetStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
-            side: const BorderSide(color: Colors.white),
+            side: const BorderSide(
+              color: Colors.white,
+              width: 3.0,
+              ),
           ),
         ),
       ),

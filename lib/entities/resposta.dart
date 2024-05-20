@@ -4,5 +4,9 @@ class Resposta {
   final String escolhida;
   final Question questao;
 
-  Resposta({required this.escolhida, required this.questao});
+  Resposta({
+    required this.escolhida,
+    required this.questao,
+    
+  });
 }
