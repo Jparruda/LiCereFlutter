@@ -5,6 +5,7 @@ import 'package:flutter_application_1/entities/resposta.dart';
 import 'package:flutter_application_1/main.dart';
 import 'package:flutter_application_1/screens/results.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:math';
 
 class QuestionsScreen extends StatefulWidget {
   const QuestionsScreen({super.key});
@@ -24,6 +25,16 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   bool optionsEnabled =
       true; // Variável para controlar se as opções estão habilitadas ou não
 
+
+List<String> opcoesLetras(String letraObrigatoria, int quantidade) {
+  const alfabeto = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  final letrasPossiveis = alfabeto.replaceAll(letraObrigatoria, '').split('');
+  letrasPossiveis.shuffle();
+  final letrasAleatorias = letrasPossiveis.take(quantidade).toList();
+  letrasAleatorias.insert(0, letraObrigatoria);
+  return letrasAleatorias;
+}
+
   @override
   void initState() {
     super.initState();
@@ -37,40 +48,40 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   void initializeQuiz() {
     List<Question> questions = [
       Question(
-        imagePath: 'pergunta1.jpg',
+        imagePath: 'A.jpg',
         textQuestion: 'Que letra é essa?',
-        options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
-        correctOption: 'Opção 2',
+        options: opcoesLetras("A",3),
+        correctOption: 'A',
       ),
       Question(
-        imagePath: 'pergunta2.jpg',
+        imagePath: 'B.jpg',
         textQuestion: 'Que letra é essa?',
-        options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
-        correctOption: 'Opção 1',
+        options: opcoesLetras("B",3),
+        correctOption: 'B',
       ),
       Question(
-        imagePath: 'pergunta3.jpg',
+        imagePath: 'C.jpg',
         textQuestion: 'Que letra é essa?',
-        options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
-        correctOption: 'Opção 2',
+        options: opcoesLetras("C",3),
+        correctOption: 'C',
       ),
       Question(
-        imagePath: 'pergunta4.jpg',
+        imagePath: 'D.jpg',
         textQuestion: 'Que letra é essa?',
-        options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
-        correctOption: 'Opção 1',
+        options: opcoesLetras("D",3),
+        correctOption: 'D',
       ),
       Question(
-        imagePath: 'pergunta5.jpg',
+        imagePath: 'E.jpg',
         textQuestion: 'Que letra é essa?',
-        options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
-        correctOption: 'Opção 2',
+        options: opcoesLetras("E",3),
+        correctOption: 'E',
       ),
       Question(
-        imagePath: 'pergunta6.jpg',
+        imagePath: 'F.jpg',
         textQuestion: 'Que letra é essa?',
-        options: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4'],
-        correctOption: 'Opção 1',
+        options: opcoesLetras("F",3),
+        correctOption: 'F',
       ),
       // Adicione mais perguntas conforme necessário
     ];
@@ -145,8 +156,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                       borderRadius: BorderRadius.circular(20),
                       child:Image.asset(
                       quiz.getCurrentQuestion().imagePath,
-                      width: constraints.maxWidth * 0.5,
-                      height: constraints.maxWidth * 0.3,
+                      width: constraints.maxWidth * 0.4,
+                      height: constraints.maxWidth * 0.2,
                     ),
                     ),
                   ),
@@ -213,6 +224,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 30),
                 TextButton(
                   onPressed: () {
                     if (optionSelected) {
