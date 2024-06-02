@@ -5,7 +5,6 @@ import 'package:flutter_application_1/entities/resposta.dart';
 import 'package:flutter_application_1/main.dart';
 import 'package:flutter_application_1/screens/results.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:math';
 
 class QuestionsScreen extends StatefulWidget {
   const QuestionsScreen({super.key});
@@ -25,15 +24,14 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   bool optionsEnabled =
       true; // Variável para controlar se as opções estão habilitadas ou não
 
-
-List<String> opcoesLetras(String letraObrigatoria, int quantidade) {
-  const alfabeto = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  final letrasPossiveis = alfabeto.replaceAll(letraObrigatoria, '').split('');
-  letrasPossiveis.shuffle();
-  final letrasAleatorias = letrasPossiveis.take(quantidade).toList();
-  letrasAleatorias.insert(0, letraObrigatoria);
-  return letrasAleatorias;
-}
+  List<String> opcoesLetras(String letraObrigatoria, int quantidade) {
+    const alfabeto = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    final letrasPossiveis = alfabeto.replaceAll(letraObrigatoria, '').split('');
+    letrasPossiveis.shuffle();
+    final letrasAleatorias = letrasPossiveis.take(quantidade).toList();
+    letrasAleatorias.insert(0, letraObrigatoria);
+    return letrasAleatorias;
+  }
 
   @override
   void initState() {
@@ -50,37 +48,37 @@ List<String> opcoesLetras(String letraObrigatoria, int quantidade) {
       Question(
         imagePath: 'A.jpg',
         textQuestion: 'Que letra é essa?',
-        options: opcoesLetras("A",3),
+        options: opcoesLetras("A", 3),
         correctOption: 'A',
       ),
       Question(
         imagePath: 'B.jpg',
         textQuestion: 'Que letra é essa?',
-        options: opcoesLetras("B",3),
+        options: opcoesLetras("B", 3),
         correctOption: 'B',
       ),
       Question(
         imagePath: 'C.jpg',
         textQuestion: 'Que letra é essa?',
-        options: opcoesLetras("C",3),
+        options: opcoesLetras("C", 3),
         correctOption: 'C',
       ),
       Question(
         imagePath: 'D.jpg',
         textQuestion: 'Que letra é essa?',
-        options: opcoesLetras("D",3),
+        options: opcoesLetras("D", 3),
         correctOption: 'D',
       ),
       Question(
         imagePath: 'E.jpg',
         textQuestion: 'Que letra é essa?',
-        options: opcoesLetras("E",3),
+        options: opcoesLetras("E", 3),
         correctOption: 'E',
       ),
       Question(
         imagePath: 'F.jpg',
         textQuestion: 'Que letra é essa?',
-        options: opcoesLetras("F",3),
+        options: opcoesLetras("F", 3),
         correctOption: 'F',
       ),
       // Adicione mais perguntas conforme necessário
@@ -99,7 +97,7 @@ List<String> opcoesLetras(String letraObrigatoria, int quantidade) {
   void initializeOptionColors() {
     optionColors = List.generate(
       quiz.getCurrentQuestion().options.length,
-      (index) => Colors.grey,
+      (index) => const Color(0xFFE3E3E3),
     );
   }
 
@@ -119,6 +117,7 @@ List<String> opcoesLetras(String letraObrigatoria, int quantidade) {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF808DFF),
       appBar: AppBar(
         title: Text(
           'LiCere',
@@ -143,7 +142,8 @@ List<String> opcoesLetras(String letraObrigatoria, int quantidade) {
                   child: LinearProgressIndicator(
                     color: const Color(0xFF09E762),
                     value: progressValue,
-                    backgroundColor:const Color(0xFF08B44D), // Valor do progresso
+                    backgroundColor:
+                        const Color(0xFF08B44D), // Valor do progresso
                     borderRadius: BorderRadius.circular(40.00),
                   ),
                 ),
@@ -152,17 +152,26 @@ List<String> opcoesLetras(String letraObrigatoria, int quantidade) {
                   padding: EdgeInsets.all(constraints.maxWidth * 0.02),
                   child: Align(
                     alignment: Alignment.center,
-                    child:ClipRRect(
+                    child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child:Image.asset(
-                      quiz.getCurrentQuestion().imagePath,
-                      width: constraints.maxWidth * 0.4,
-                      height: constraints.maxWidth * 0.2,
-                    ),
+                      child: Image.asset(
+                        quiz.getCurrentQuestion().imagePath,
+                        width: constraints.maxWidth * 0.4,
+                        height: constraints.maxWidth * 0.2,
+                      ),
                     ),
                   ),
                 ),
-                Text(quiz.getCurrentQuestion().textQuestion),
+                Text(
+                  quiz.getCurrentQuestion().textQuestion,
+                  style:  GoogleFonts.montserrat( 
+                    textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold
+                  ),)
+                ),
+                const SizedBox(height: 20), // 
                 Padding(
                   padding: const EdgeInsets.all(4),
                   child: Align(
@@ -192,8 +201,7 @@ List<String> opcoesLetras(String letraObrigatoria, int quantidade) {
                                                 .options[
                                             index]; // Armazena a opção selecionada
                                         optionSelected = true;
-                                        optionColors[index] = const Color(
-                                            0xFF808DFF); // Define a cor da opção selecionada
+                                        optionColors[index] = const Color(0xFFFFF86E); // Define a cor da opção selecionada
                                         // Verifica se a opção selecionada é correta
                                         answerCorrect = selectedOption ==
                                             quiz
@@ -213,9 +221,12 @@ List<String> opcoesLetras(String letraObrigatoria, int quantidade) {
                               ),
                               child: Text(
                                 quiz.getCurrentQuestion().options[index],
-                                style: const TextStyle(
-                                  color: Colors.white, // Cor do texto do botão
-                                ),
+                                style:  GoogleFonts.montserrat( 
+                                  textStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold
+                              ),)
                               ),
                             ),
                           ),
@@ -225,66 +236,71 @@ List<String> opcoesLetras(String letraObrigatoria, int quantidade) {
                   ),
                 ),
                 const SizedBox(height: 30),
-                TextButton(
-                  onPressed: () {
-                    if (optionSelected) {
-                      setState(() {
-                        optionsEnabled = false; // Desativa as opções
-                        if (answerCorrect) {
-                          // Se a resposta estiver correta, define a cor da opção selecionada como verde
-                          optionColors[quiz
-                              .getCurrentQuestion()
-                              .options
-                              .indexOf(selectedOption)] = const Color(0xFF09E762);
-                        } else {
-                          // Se a resposta estiver incorreta, define a cor da opção selecionada como vermelha
-                          optionColors[quiz
-                              .getCurrentQuestion()
-                              .options
-                              .indexOf(selectedOption)] = const Color(0xFFFC1605);
-                        }
-                      });
-                      goToNextQuestionAfterDelay(); // Avança para a próxima pergunta após um atraso
-                      Resposta resposta = Resposta(
-                          escolhida: selectedOption,
-                          questao: quiz.getCurrentQuestion());
-                      getIt<List<Resposta>>().add(resposta);
+                Padding(
+                  padding: EdgeInsets.all(constraints.maxHeight * 0.1),
+                  child: TextButton(
+                    onPressed: () {
+                      if (optionSelected) {
+                        setState(() {
+                          optionsEnabled = false; // Desativa as opções
+                          if (answerCorrect) {
+                            // Se a resposta estiver correta, define a cor da opção selecionada como verde
+                            optionColors[quiz
+                                    .getCurrentQuestion()
+                                    .options
+                                    .indexOf(selectedOption)] =
+                                const Color(0xFF09E762);
+                          } else {
+                            // Se a resposta estiver incorreta, define a cor da opção selecionada como vermelha
+                            optionColors[quiz
+                                    .getCurrentQuestion()
+                                    .options
+                                    .indexOf(selectedOption)] =
+                                const Color(0xFFFC1605);
+                          }
+                        });
+                        goToNextQuestionAfterDelay(); // Avança para a próxima pergunta após um atraso
+                        Resposta resposta = Resposta(
+                            escolhida: selectedOption,
+                            questao: quiz.getCurrentQuestion());
+                        getIt<List<Resposta>>().add(resposta);
 
-                      if (quiz.currentIndex == quiz.questions.length - 1) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Resultados(),
-                          ),
-                        );
+                        if (quiz.currentIndex == quiz.questions.length - 1) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Resultados(),
+                            ),
+                          );
+                        }
                       }
-                    }
-                  },
-                  style: ButtonStyle(
-                    backgroundColor:
-                        WidgetStateProperty.all<Color>(const Color(0xFF09E762)),
-                    foregroundColor: WidgetStateProperty.all<Color>(
-                        const Color.fromARGB(255, 47, 156, 91)),
-                    padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
-                      const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 20.0),
-                    ),
-                    shape: WidgetStateProperty.all<OutlinedBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                        side: const BorderSide(
-                            color: Colors.white), // Adiciona a borda
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all<Color>(
+                          const Color(0xFF09E762)),
+                      foregroundColor: WidgetStateProperty.all<Color>(
+                          const Color.fromARGB(255, 47, 156, 91)),
+                      padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+                        const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 20.0),
                       ),
+                      shape: WidgetStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          side: const BorderSide(
+                              color: Colors.white), // Adiciona a borda
+                        ),
+                      ),
+                      elevation: WidgetStateProperty.all<double>(
+                          30.0), // Adiciona a sombra
                     ),
-                    elevation: WidgetStateProperty.all<double>(
-                        30.0), // Adiciona a sombra
-                  ),
-                  child: Text(
-                    "Próxima Pergunta",
-                    style: GoogleFonts.montserrat(
-                      textStyle: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                    child: Text(
+                      "Próxima Pergunta",
+                      style: GoogleFonts.montserrat(
+                        textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
