@@ -162,16 +162,14 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                     ),
                   ),
                 ),
-                Text(
-                  quiz.getCurrentQuestion().textQuestion,
-                  style:  GoogleFonts.montserrat( 
-                    textStyle: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold
-                  ),)
-                ),
-                const SizedBox(height: 20), // 
+                Text(quiz.getCurrentQuestion().textQuestion,
+                    style: GoogleFonts.montserrat(
+                      textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold),
+                    )),
+                const SizedBox(height: 20), //
                 Padding(
                   padding: const EdgeInsets.all(4),
                   child: Align(
@@ -196,12 +194,14 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                               onPressed: optionsEnabled
                                   ? () {
                                       setState(() {
+                                        initializeOptionColors();
                                         selectedOption = quiz
                                                 .getCurrentQuestion()
                                                 .options[
                                             index]; // Armazena a opção selecionada
                                         optionSelected = true;
-                                        optionColors[index] = const Color(0xFFFFF86E); // Define a cor da opção selecionada
+                                        optionColors[index] = const Color(
+                                            0xFFFFF86E); // Define a cor da opção selecionada
                                         // Verifica se a opção selecionada é correta
                                         answerCorrect = selectedOption ==
                                             quiz
@@ -212,22 +212,21 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                   : null,
                               style: ButtonStyle(
                                 backgroundColor:
-                                    WidgetStateProperty.resolveWith<Color>(
+                                    MaterialStateProperty.resolveWith<Color>(
                                   (states) {
                                     return optionColors[
                                         index]; // Retorna a cor da opção conforme definido
                                   },
                                 ),
                               ),
-                              child: Text(
-                                quiz.getCurrentQuestion().options[index],
-                                style:  GoogleFonts.montserrat( 
-                                  textStyle: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold
-                              ),)
-                              ),
+                              child:
+                                  Text(quiz.getCurrentQuestion().options[index],
+                                      style: GoogleFonts.montserrat(
+                                        textStyle: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.bold),
+                                      )),
                             ),
                           ),
                         ),
@@ -276,22 +275,22 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                       }
                     },
                     style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all<Color>(
+                      backgroundColor: MaterialStateProperty.all<Color>(
                           const Color(0xFF09E762)),
-                      foregroundColor: WidgetStateProperty.all<Color>(
+                      foregroundColor: MaterialStateProperty.all<Color>(
                           const Color.fromARGB(255, 47, 156, 91)),
-                      padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                         const EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 20.0),
                       ),
-                      shape: WidgetStateProperty.all<OutlinedBorder>(
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                           side: const BorderSide(
                               color: Colors.white), // Adiciona a borda
                         ),
                       ),
-                      elevation: WidgetStateProperty.all<double>(
+                      elevation: MaterialStateProperty.all<double>(
                           30.0), // Adiciona a sombra
                     ),
                     child: Text(

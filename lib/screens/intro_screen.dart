@@ -53,15 +53,15 @@ class PlayButton extends StatelessWidget {
         MaterialPageRoute(builder: (context) => const QuestionsScreen()),
       ),
       style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(const Color(0xFF09E762)),
-        foregroundColor: WidgetStateProperty.all(const Color(0xFF2F9C5B)),
-        shape: WidgetStateProperty.all(
+        backgroundColor: MaterialStateProperty.all(const Color(0xFF09E762)),
+        foregroundColor: MaterialStateProperty.all(const Color(0xFF2F9C5B)),
+        shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
             side: const BorderSide(
               color: Colors.white,
               width: 3.0,
-              ),
+            ),
           ),
         ),
       ),
