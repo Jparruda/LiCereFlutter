@@ -19,6 +19,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   late List<Color> optionColors;
   late bool optionSelected;
   late String selectedOption;
+
   bool answerCorrect =
       false; // Variável para armazenar se a resposta selecionada é correta ou não
   bool optionsEnabled =
