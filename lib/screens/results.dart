@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/entities/question.dart';
 import 'package:flutter_application_1/entities/resposta.dart';
 import 'package:flutter_application_1/main.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Resultados extends StatefulWidget {
   const Resultados({super.key});
@@ -37,26 +38,60 @@ class _ResultadosState extends State<Resultados> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("Respostas corretas: ${corretas()}"),
-      ),
-      floatingActionButton: ElevatedButton(
-        onPressed: () {
-          var resposta = Resposta(
-            escolhida: "A",
-            questao: Question(
-              correctOption: "A",
-              options: ["A", "B", "C", "D"],
-              textQuestion: "",
-              imagePath: "",
+      appBar: AppBar(
+        title: Text(
+          'LiCere',
+          style: GoogleFonts.lobsterTwo(
+            textStyle: const TextStyle(
+              fontSize: 40,
+              color: Color(0xFF09E762),
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
             ),
-          );
-
-          getIt<List<Resposta>>().add(resposta);
-          // atualizarNumRespostasCorretas();
-        },
-        child: const Icon(Icons.add),
+          ),
+        ),
+        centerTitle: true,
       ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          // Definir o padding proporcional como 33% da altura da tela
+          double paddingProporcional = constraints.maxHeight * 0.33;
+          return  SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  color: Colors.black,
+                  height:  constraints.maxHeight * 0.33,
+                  width:  constraints.maxWidth,
+                ),
+                Container(
+                  color: Color(0xFF6C07B9),
+                  height:  constraints.maxHeight * 0.33,
+                  width:  constraints.maxWidth,
+                ),
+                Row(
+                  children: [
+                    Container(
+                      width:  constraints.maxWidth * 0.33, // Largura do container para visualização
+                      height:  constraints.maxHeight * 0.33, // Altura do container para visualização
+                      color: Color(0xFF7C0A0A),
+                    ),
+                    Container(
+                      width:  constraints.maxWidth * 0.33, // Largura do container para visualização
+                      height:  constraints.maxHeight * 0.33, // Altura do container para visualização
+                      color: Colors.black,
+                    ),
+                    Container(
+                      width:  constraints.maxWidth * 0.33, // Largura do container para visualização
+                      height:  constraints.maxHeight * 0.33, // Altura do container para visualização
+                      color: Color(0xFF095E8F),
+                    ),
+                  ],
+                )
+              ],
+          )
+        );
+      }),
     );
   }
 }
