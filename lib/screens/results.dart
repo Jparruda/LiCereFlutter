@@ -69,10 +69,29 @@ class _ResultadosState extends State<Resultados> {
                     child: Row(
                       children: [
                         Container(
+                          width: constraints.maxWidth * 0.03,
+                        ),
+                        Container(
                           width:  constraints.maxWidth * 0.18,
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Color(0xFF09E762)
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 10,
+                              ),
+                               Text("Acertos:", 
+                              style: GoogleFonts.montserrat(
+                                textStyle:  TextStyle(
+                                  color: Colors.white,
+                                  fontSize: constraints.maxWidth * 0.02,
+                                  fontWeight: FontWeight.bold
+                                )
+                              )),
+                              Text("$corretas()")
+                            ],
                           ),
                         )
                       ],
