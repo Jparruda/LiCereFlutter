@@ -55,41 +55,42 @@ class _ResultadosState extends State<Resultados> {
       body: LayoutBuilder(
         builder: (context, constraints) {
           // Definir o padding proporcional como 33% da altura da tela
-          double paddingProporcional = constraints.maxHeight * 0.33;
           return  SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  color: Colors.black,
-                  height:  constraints.maxHeight * 0.33,
-                  width:  constraints.maxWidth,
-                ),
-                Container(
-                  color: Color(0xFF6C07B9),
-                  height:  constraints.maxHeight * 0.33,
-                  width:  constraints.maxWidth,
-                ),
-                Row(
-                  children: [
-                    Container(
-                      width:  constraints.maxWidth * 0.33, // Largura do container para visualização
-                      height:  constraints.maxHeight * 0.33, // Altura do container para visualização
-                      color: Color(0xFF7C0A0A),
+            child: Center(
+              child: Column(
+                children: [
+                  Container(
+                    height:  constraints.maxHeight * 0.4,
+                    width:  constraints.maxWidth * 0.9,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF646AFF),
+                      borderRadius: BorderRadius.circular(40)
                     ),
-                    Container(
-                      width:  constraints.maxWidth * 0.33, // Largura do container para visualização
-                      height:  constraints.maxHeight * 0.33, // Altura do container para visualização
-                      color: Colors.black,
+                    child: Row(
+                      children: [
+                        Container(
+                          width:  constraints.maxWidth * 0.18,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0xFF09E762)
+                          ),
+                        )
+                      ],
                     ),
-                    Container(
-                      width:  constraints.maxWidth * 0.33, // Largura do container para visualização
-                      height:  constraints.maxHeight * 0.33, // Altura do container para visualização
-                      color: Color(0xFF095E8F),
-                    ),
-                  ],
-                )
-              ],
-          )
+                    
+                  ),
+                  Container(
+                    height:  constraints.maxHeight * 0.1,
+                    width:  constraints.maxWidth,
+                  ),
+                  Container(
+                    width:  constraints.maxWidth * 0.33, // Largura do container para visualização
+                    height:  constraints.maxHeight * 0.5, // Altura do container para visualização
+                    color: const Color(0xFF7C0A0A),
+                        ),
+                ],
+                        ),
+            )
         );
       }),
     );

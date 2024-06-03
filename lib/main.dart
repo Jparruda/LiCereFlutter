@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Licere',
       theme: mainTheme,
-      home: const HomePage(),
+      home: const Resultados(),
       // home: const Resultados(),
     );
   }
